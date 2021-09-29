@@ -149,7 +149,6 @@ public class Player : MonoBehaviour
   {
     isAlive = false;
     playerAnimator.SetBool("isDying", true);
-    Physics2D.IgnoreLayerCollision(10, 12, true);
 
     GameSession gameSession = FindObjectOfType<GameSession>();
     StartCoroutine(gameSession.ResetGameSession());
