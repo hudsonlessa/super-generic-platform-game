@@ -10,13 +10,21 @@ public class GameSession : MonoBehaviour
   [SerializeField] private int health = 2;
   [SerializeField] private MainCanvas mainCanvas;
   [SerializeField] private GameObject healthDisplay;
+  [SerializeField] private GameObject diamondsDisplay;
+  private Transform dots;
+  private Transform diamonds;
 
   private void Awake()
   {
-    int gameSessionsQuantity = FindObjectsOfType<GameSession>().Length;
+    int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-    if (gameSessionsQuantity > 1) Destroy(gameObject);
+    if (currentSceneIndex != 0) Destroy(gameObject);
     else DontDestroyOnLoad(gameObject);
+  }
+
+  private void Start()
+  {
+    PrepareDiamondsDisplay();
   }
 
   public int GetHealth()
@@ -34,6 +42,30 @@ public class GameSession : MonoBehaviour
     GameObject lastHeart = healthDisplay.transform.GetChild(heartCount - 1).gameObject;
 
     Destroy(lastHeart);
+  }
+
+  private void PrepareDiamondsDisplay()
+  {
+    dots = diamondsDisplay.transform.Find("Dots");
+    diamonds = diamondsDisplay.transform.Find("Diamonds");
+
+    foreach (Transform diamond in diamonds)
+    {
+      diamond.gameObject.SetActive(false);
+    }
+  }
+
+  public void AddDiamond()
+  {
+    mainCanvas.EnableThenDisable();
+
+    int diamondsInSceneQuantity = GameObject.FindGameObjectsWithTag("Diamond").Length;
+
+    GameObject nextDot = dots.GetChild(diamondsInSceneQuantity - 1).gameObject;
+    nextDot.SetActive(false);
+
+    GameObject nextDiamond = diamonds.GetChild(3 - diamondsInSceneQuantity).gameObject;
+    nextDiamond.SetActive(true);
   }
 
   public IEnumerator ResetGameSession()

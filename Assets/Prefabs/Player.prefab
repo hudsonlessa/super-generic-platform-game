@@ -67,13 +67,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047c6e5ad24b33245a6faa8604009f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 2
   walkSpeed: 5
   jumpSpeed: 23
   climbSpeed: 5
   knockoutSpeed: 15
   invunerabilityTime: 1
   hitSound: {fileID: 8300000, guid: 66095d97f1d91cf4ab1efa413fc1c040, type: 3}
+  gameSession: {fileID: 0}
   playerBodyCollider: {fileID: 3272618893595999538}
   playerFeetCollider: {fileID: 1193348045}
 --- !u!50 &5217328334412076048

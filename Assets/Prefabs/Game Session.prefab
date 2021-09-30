@@ -45,3 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneLoadDelay: 5
   slowMotionFactor: 0.2
+  health: 2
+  mainCanvas: {fileID: 0}
+  healthDisplay: {fileID: 0}
+  diamondsDisplay: {fileID: 0}

@@ -268,6 +268,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1235047717}
     m_Modifications:
+    - target: {fileID: 483883989781182551, guid: f770dcafce5e2df42b38a7e1aa7582b2, type: 3}
+      propertyPath: gameSession
+      value: 
+      objectReference: {fileID: 587749282}
+    - target: {fileID: 483883989781182551, guid: f770dcafce5e2df42b38a7e1aa7582b2, type: 3}
+      propertyPath: diamondsDisplay
+      value: 
+      objectReference: {fileID: 1746706593}
     - target: {fileID: 1928796332984693352, guid: f770dcafce5e2df42b38a7e1aa7582b2, type: 3}
       propertyPath: m_Name
       value: Diamond (3)
@@ -14979,6 +14987,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1235047717}
     m_Modifications:
+    - target: {fileID: 483883989781182551, guid: f770dcafce5e2df42b38a7e1aa7582b2, type: 3}
+      propertyPath: gameSession
+      value: 
+      objectReference: {fileID: 587749282}
+    - target: {fileID: 483883989781182551, guid: f770dcafce5e2df42b38a7e1aa7582b2, type: 3}
+      propertyPath: diamondsDisplay
+      value: 
+      objectReference: {fileID: 1746706593}
     - target: {fileID: 1928796332984693352, guid: f770dcafce5e2df42b38a7e1aa7582b2, type: 3}
       propertyPath: m_Name
       value: Diamond (2)
@@ -15171,6 +15187,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67dc0aca78fb1b741b06e21df2712e4c, type: 3}
+--- !u!1 &1746706593 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2177695602347208242, guid: 5422759f803348447a44f163a99aad87, type: 3}
+  m_PrefabInstance: {fileID: 2177695602644058527}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1905808890
 GameObject:
   m_ObjectHideFlags: 0
@@ -15334,6 +15355,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1235047717}
     m_Modifications:
+    - target: {fileID: 483883989781182551, guid: f770dcafce5e2df42b38a7e1aa7582b2, type: 3}
+      propertyPath: gameSession
+      value: 
+      objectReference: {fileID: 587749282}
     - target: {fileID: 1928796332984693352, guid: f770dcafce5e2df42b38a7e1aa7582b2, type: 3}
       propertyPath: m_Name
       value: Diamond (1)
@@ -16053,6 +16078,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2177695603054105549, guid: 5422759f803348447a44f163a99aad87, type: 3}
+    - {fileID: 2177695602347208238, guid: 5422759f803348447a44f163a99aad87, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5422759f803348447a44f163a99aad87, type: 3}
 --- !u!1001 &2606171348000075444
 PrefabInstance:
@@ -16170,6 +16196,10 @@ PrefabInstance:
       propertyPath: healthDisplay
       value: 
       objectReference: {fileID: 217216472}
+    - target: {fileID: 3265477559921322707, guid: 5f9f2d908cb28e04fa5117858c822003, type: 3}
+      propertyPath: diamondsDisplay
+      value: 
+      objectReference: {fileID: 1746706593}
     - target: {fileID: 3265477559921322708, guid: 5f9f2d908cb28e04fa5117858c822003, type: 3}
       propertyPath: m_Name
       value: Game Session
