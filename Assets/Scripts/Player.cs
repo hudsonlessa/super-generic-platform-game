@@ -8,13 +8,13 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
   // Configuration parameters
-  [SerializeField] private int playerHealth = 2;
   [SerializeField] private float walkSpeed = 5f;
   [SerializeField] private float jumpSpeed = 5f;
   [SerializeField] private float climbSpeed = 5f;
   [SerializeField] private float knockoutSpeed = 15f;
   [SerializeField] private float invunerabilityTime = 1f;
   [SerializeField] private AudioClip hitSound;
+  [SerializeField] private GameSession gameSession;
 
   // States
   private bool isAlive;
@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
   private Rigidbody2D playerRigidbody;
   private SpriteRenderer playerSpriteRenderer;
   private Animator playerAnimator;
-  private HealthDisplay healthDisplay;
   [SerializeField] private Collider2D playerBodyCollider;
   [SerializeField] private Collider2D playerFeetCollider;
 
@@ -39,7 +38,6 @@ public class Player : MonoBehaviour
     playerSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
     playerAnimator = GetComponent<Animator>();
     initialGravityScale = playerRigidbody.gravityScale;
-    healthDisplay = GameObject.Find("Health Display").GetComponent<HealthDisplay>();
   }
 
   // Update is called once per frame
@@ -122,20 +120,11 @@ public class Player : MonoBehaviour
 
       AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position);
 
-      healthDisplay.RemoveHeart();
-
-      if (playerHealth > 1)
-      {
-        RemoveHealth();
-        StartCoroutine(MakeInvunerable());
-      }
+      if (gameSession.GetHealth() > 1) StartCoroutine(MakeInvunerable());
       else Die();
-    }
-  }
 
-  private void RemoveHealth()
-  {
-    playerHealth--;
+      gameSession.RemoveHealth();
+    }
   }
 
   private IEnumerator MakeInvunerable()
@@ -149,8 +138,6 @@ public class Player : MonoBehaviour
   {
     isAlive = false;
     playerAnimator.SetBool("isDying", true);
-
-    GameSession gameSession = FindObjectOfType<GameSession>();
     StartCoroutine(gameSession.ResetGameSession());
   }
 }

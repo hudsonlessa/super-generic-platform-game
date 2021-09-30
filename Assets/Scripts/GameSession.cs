@@ -7,6 +7,9 @@ public class GameSession : MonoBehaviour
 {
   [SerializeField] private float sceneLoadDelay = 5f;
   [SerializeField] private float slowMotionFactor = .2f;
+  [SerializeField] private int health = 2;
+  [SerializeField] private MainCanvas mainCanvas;
+  [SerializeField] private GameObject healthDisplay;
 
   private void Awake()
   {
@@ -14,6 +17,23 @@ public class GameSession : MonoBehaviour
 
     if (gameSessionsQuantity > 1) Destroy(gameObject);
     else DontDestroyOnLoad(gameObject);
+  }
+
+  public int GetHealth()
+  {
+    return health;
+  }
+
+  public void RemoveHealth()
+  {
+    mainCanvas.EnableThenDisable();
+
+    health--;
+
+    int heartCount = healthDisplay.transform.childCount;
+    GameObject lastHeart = healthDisplay.transform.GetChild(heartCount - 1).gameObject;
+
+    Destroy(lastHeart);
   }
 
   public IEnumerator ResetGameSession()
@@ -26,7 +46,5 @@ public class GameSession : MonoBehaviour
 
     int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     SceneManager.LoadScene(currentSceneIndex);
-
-    Destroy(gameObject);
   }
 }
