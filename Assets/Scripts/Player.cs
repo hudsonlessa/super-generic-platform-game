@@ -34,16 +34,6 @@ public class Player : MonoBehaviour
   private Vector2 moveInput;
   private PlayerControls playerControls;
 
-  private void OnEnable()
-  {
-    playerControls.Gameplay.Enable();
-  }
-
-  private void OnDisable()
-  {
-    playerControls.Gameplay.Disable();
-  }
-
   private void Awake()
   {
     playerControls = new PlayerControls();
@@ -178,5 +168,15 @@ public class Player : MonoBehaviour
     isAlive = false;
     playerAnimator.SetBool("isDying", true);
     StartCoroutine(gameSession.ResetGameSession());
+  }
+
+  private void OnEnable()
+  {
+    playerControls.Gameplay.Enable();
+  }
+
+  private void OnDisable()
+  {
+    playerControls.Gameplay.Disable();
   }
 }
