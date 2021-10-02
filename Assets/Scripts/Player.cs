@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-// Temporary
-using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -19,16 +17,37 @@ public class Player : MonoBehaviour
   // States
   private bool isAlive;
   private bool isInvunerable;
-  private float horizontalInput = 0f;
-  private float verticalInput = 0f;
 
   // Cached component references
-  private float initialGravityScale;
   private Rigidbody2D playerRigidbody;
   private SpriteRenderer playerSpriteRenderer;
   private Animator playerAnimator;
   [SerializeField] private Collider2D playerBodyCollider;
   [SerializeField] private Collider2D playerFeetCollider;
+
+  private PlayerControls playerControls;
+  private Vector2 moveInput;
+  private float initialGravityScale;
+
+  private void OnEnable()
+  {
+    playerControls.Gameplay.Enable();
+  }
+
+  private void OnDisable()
+  {
+    playerControls.Gameplay.Disable();
+  }
+
+  private void Awake()
+  {
+    playerControls = new PlayerControls();
+
+    playerControls.Gameplay.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+    playerControls.Gameplay.Move.canceled += ctx => moveInput = Vector2.zero;
+
+    playerControls.Gameplay.Jump.performed += ctx => Jump();
+  }
 
   private void Start()
   {
@@ -45,35 +64,27 @@ public class Player : MonoBehaviour
   {
     if (!isAlive) return;
 
-    SetInputValues();
     Walk();
-    Jump();
     Climb();
     TreatSprite();
     ProcessDamage();
-  }
-
-  private void SetInputValues()
-  {
-    horizontalInput = Input.GetAxis("Horizontal");
-    verticalInput = Input.GetAxis("Vertical");
-  }
-
-  private void Walk()
-  {
-    Vector2 playerVelocity = new Vector2(horizontalInput * walkSpeed, playerRigidbody.velocity.y);
-    playerRigidbody.velocity = playerVelocity;
   }
 
   private void Jump()
   {
     bool isGrounded = playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
 
-    if (Input.GetButtonDown("Jump") && isGrounded)
+    if (isGrounded)
     {
       Vector2 jumpVelocity = new Vector2(0f, jumpSpeed);
       playerRigidbody.velocity += jumpVelocity;
     }
+  }
+
+  private void Walk()
+  {
+    Vector2 playerVelocity = new Vector2(moveInput.x * walkSpeed, playerRigidbody.velocity.y);
+    playerRigidbody.velocity = playerVelocity;
   }
 
   private void Climb()
@@ -82,7 +93,7 @@ public class Player : MonoBehaviour
 
     if (isOnLadder)
     {
-      if (verticalInput > 0)
+      if (moveInput.y > 0)
       {
         playerRigidbody.gravityScale = 0;
         if (!playerAnimator.GetBool("isClimbing")) playerAnimator.SetBool("isClimbing", isOnLadder);
@@ -90,7 +101,7 @@ public class Player : MonoBehaviour
 
       if (playerAnimator.GetBool("isClimbing"))
       {
-        Vector2 playerVelocity = new Vector2(playerRigidbody.velocity.x, verticalInput * climbSpeed);
+        Vector2 playerVelocity = new Vector2(playerRigidbody.velocity.x, moveInput.y * climbSpeed);
         playerRigidbody.velocity = playerVelocity;
       }
     }
@@ -103,9 +114,9 @@ public class Player : MonoBehaviour
 
   private void TreatSprite()
   {
-    if (horizontalInput != 0)
+    if (moveInput.x != 0)
     {
-      playerSpriteRenderer.flipX = horizontalInput < 0;
+      playerSpriteRenderer.flipX = moveInput.x < 0;
       playerAnimator.SetBool("isWalking", true);
     }
     else playerAnimator.SetBool("isWalking", false);
