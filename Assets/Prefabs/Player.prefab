@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 5
+  deceleration: 10
   jumpSpeed: 23
   climbSpeed: 5
   knockoutSpeed: 15
