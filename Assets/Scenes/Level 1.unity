@@ -342,6 +342,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f770dcafce5e2df42b38a7e1aa7582b2, type: 3}
+--- !u!1 &461029195 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2290448124280669891, guid: 1d3948eadc953bc4dba0b313dc4e858e, type: 3}
+  m_PrefabInstance: {fileID: 2290448124466903432}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &461029200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461029195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c540acdd20829fc409c775edbd907e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &461596875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16101,7 +16118,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2290448124280669891, guid: 1d3948eadc953bc4dba0b313dc4e858e, type: 3}
       propertyPath: m_Name
-      value: Player Control Canvas
+      value: On-Screen Controls
       objectReference: {fileID: 0}
     - target: {fileID: 2290448124280669895, guid: 1d3948eadc953bc4dba0b313dc4e858e, type: 3}
       propertyPath: m_Pivot.x
