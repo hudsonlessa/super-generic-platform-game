@@ -7,10 +7,13 @@ public class Player : MonoBehaviour
 {
   // Configuration parameters
   [SerializeField] private float walkSpeed = 5f;
+  [Tooltip("The higher the value, the faster it stops.")]
+  [SerializeField] private float deceleration = 10f;
   [SerializeField] private float jumpSpeed = 5f;
   [SerializeField] private float climbSpeed = 5f;
   [SerializeField] private float knockoutSpeed = 15f;
   [SerializeField] private float invunerabilityTime = 1f;
+  [Space]
   [SerializeField] private AudioClip hitSound;
   [SerializeField] private GameSession gameSession;
 
@@ -22,12 +25,14 @@ public class Player : MonoBehaviour
   private Rigidbody2D playerRigidbody;
   private SpriteRenderer playerSpriteRenderer;
   private Animator playerAnimator;
+  [Space]
   [SerializeField] private Collider2D playerBodyCollider;
   [SerializeField] private Collider2D playerFeetCollider;
 
-  private PlayerControls playerControls;
-  private Vector2 moveInput;
   private float initialGravityScale;
+  private bool hasMoveInput;
+  private Vector2 moveInput;
+  private PlayerControls playerControls;
 
   private void OnEnable()
   {
@@ -43,10 +48,30 @@ public class Player : MonoBehaviour
   {
     playerControls = new PlayerControls();
 
-    playerControls.Gameplay.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-    playerControls.Gameplay.Move.canceled += ctx => moveInput = Vector2.zero;
+    playerControls.Gameplay.Move.performed += ctx =>
+    {
+      hasMoveInput = true;
+      moveInput = ctx.ReadValue<Vector2>();
+    };
+
+    playerControls.Gameplay.Move.canceled += ctx => hasMoveInput = false;
 
     playerControls.Gameplay.Jump.performed += ctx => Jump();
+  }
+
+  private void HandleInput(Vector2 newMoveInput)
+  {
+    if (hasMoveInput) return;
+
+    float xLerp = Mathf.Lerp(moveInput.x, newMoveInput.x, .5f * Time.deltaTime * deceleration);
+
+    if (moveInput.x > 0)
+      if (xLerp < .2f) xLerp = 0;
+
+    if (moveInput.x < 0)
+      if (xLerp > -.2f) xLerp = 0;
+
+    moveInput = new Vector2(xLerp, newMoveInput.y);
   }
 
   private void Start()
@@ -64,10 +89,19 @@ public class Player : MonoBehaviour
   {
     if (!isAlive) return;
 
+    Vector2 newMoveInput = playerControls.Gameplay.Move.ReadValue<Vector2>();
+    HandleInput(newMoveInput);
+
     Walk();
     Climb();
     TreatSprite();
     ProcessDamage();
+  }
+
+  private void Walk()
+  {
+    Vector2 playerVelocity = new Vector2(moveInput.x * walkSpeed, playerRigidbody.velocity.y);
+    playerRigidbody.velocity = playerVelocity;
   }
 
   private void Jump()
@@ -79,12 +113,6 @@ public class Player : MonoBehaviour
       Vector2 jumpVelocity = new Vector2(0f, jumpSpeed);
       playerRigidbody.velocity += jumpVelocity;
     }
-  }
-
-  private void Walk()
-  {
-    Vector2 playerVelocity = new Vector2(moveInput.x * walkSpeed, playerRigidbody.velocity.y);
-    playerRigidbody.velocity = playerVelocity;
   }
 
   private void Climb()
