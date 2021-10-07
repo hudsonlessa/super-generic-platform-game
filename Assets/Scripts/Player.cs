@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
   [SerializeField] private float jumpSpeed = 5f;
   [SerializeField] private float climbSpeed = 5f;
   [SerializeField] private float knockoutSpeed = 15f;
+  [Space]
   [SerializeField] private float invunerabilityTime = 1f;
   [Space]
   [SerializeField] private AudioClip hitSound;
