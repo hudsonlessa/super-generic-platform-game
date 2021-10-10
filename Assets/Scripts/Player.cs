@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
     Walk();
     Climb();
     FallSlowly();
-    TreatSprite();
+    TreatWalkSprite();
     ProcessDamage();
   }
 
@@ -153,7 +153,7 @@ public class Player : MonoBehaviour
     }
   }
 
-  private void TreatSprite()
+  private void TreatWalkSprite()
   {
     if (moveInput.x != 0)
     {
