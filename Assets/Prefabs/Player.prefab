@@ -71,6 +71,7 @@ MonoBehaviour:
   acceleration: 15
   deceleration: 10
   jumpSpeed: 25
+  fallGravityScale: 0.5
   climbSpeed: 5
   knockoutSpeed: 15
   invunerabilityTime: 1

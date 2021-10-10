@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
   [Tooltip("The higher the value, the faster the stop.")]
   [SerializeField] private float deceleration = 10f;
   [SerializeField] private float jumpSpeed = 5f;
+  [SerializeField] private float fallGravityScale = .5f;
   [SerializeField] private float climbSpeed = 5f;
   [SerializeField] private float knockoutSpeed = 15f;
   [Space]
@@ -63,6 +64,7 @@ public class Player : MonoBehaviour
 
     Walk();
     Climb();
+    FallSlowly();
     TreatSprite();
     ProcessDamage();
   }
@@ -112,6 +114,17 @@ public class Player : MonoBehaviour
     {
       Vector2 jumpVelocity = new Vector2(0f, jumpSpeed);
       playerRigidbody.velocity += jumpVelocity;
+    }
+  }
+
+  private void FallSlowly()
+  {
+    bool isFalling = playerRigidbody.velocity.y < 0;
+
+    if (!playerAnimator.GetBool("isClimbing"))
+    {
+      if (isFalling) playerRigidbody.gravityScale = fallGravityScale;
+      else playerRigidbody.gravityScale = initialGravityScale;
     }
   }
 
