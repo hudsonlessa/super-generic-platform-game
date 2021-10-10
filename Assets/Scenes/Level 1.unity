@@ -16467,14 +16467,6 @@ PrefabInstance:
       propertyPath: gameSession
       value: 
       objectReference: {fileID: 587749282}
-    - target: {fileID: 1344568745, guid: e02251f812967e74585ba813c93956a5, type: 3}
-      propertyPath: fallGravityScale
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5217328334412076048, guid: e02251f812967e74585ba813c93956a5, type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8793823182155294791, guid: e02251f812967e74585ba813c93956a5, type: 3}
       propertyPath: m_Name
       value: Player

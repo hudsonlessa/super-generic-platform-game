@@ -62,11 +62,17 @@ public class Player : MonoBehaviour
   {
     if (!isAlive) return;
 
+    TreatWalkSprite();
+    ProcessDamage();
+  }
+
+  private void FixedUpdate()
+  {
+    if (!isAlive) return;
+
     Walk();
     Climb();
     FallSlowly();
-    TreatWalkSprite();
-    ProcessDamage();
   }
 
   private void Walk()
